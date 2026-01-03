@@ -4,81 +4,156 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EgoClavisLabs</title>
-    
-    <!-- Favicon Links (weka hizi juu) -->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <link rel="manifest" href="site.webmanifest">
-    
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    
-    <!-- ... (CSS yako yote iliyopo bado iache hapa) ... -->
-    
     <style>
-        /* ... CSS yako yote ya awali ... */
-
-        /* New: Social Icons Style */
-        .social-links {
-            margin-top: 40px;
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            text-align: center;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
         }
 
-        .social-links a {
+        /* Binary Rain Background */
+        canvas#matrix {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .container {
+            max-width: 900px;
+            padding: 40px;
+            animation: fadeIn 2s ease-in-out;
+            z-index: 1;
+        }
+
+        .logo {
+            width: 220px;
+            margin-bottom: 30px;
+            filter: drop-shadow(0 0 15px #00BFFF);
+            transition: transform 0.5s;
+        }
+
+        .logo:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4.5em;
+            color: #00BFFF;
+            margin: 0;
+            text-shadow: 0 0 20px rgba(0, 191, 255, 0.6);
+            animation: glow 3s infinite alternate;
+        }
+
+        p {
+            font-size: 1.4em;
+            max-width: 800px;
+            margin: 20px auto;
+            line-height: 1.6;
+        }
+
+        .links a {
             display: inline-block;
-            margin: 0 15px;
-            width: 50px;
-            height: 50px;
+            margin: 15px 20px;
+            padding: 12px 30px;
             background: rgba(0, 191, 255, 0.1);
             border: 2px solid #00BFFF;
-            border-radius: 50%;
-            line-height: 50px;
-            font-size: 24px;
+            border-radius: 50px;
             color: #00BFFF;
+            text-decoration: none;
+            font-weight: 500;
             transition: all 0.4s;
         }
 
-        .social-links a:hover {
+        .links a:hover {
             background: #00BFFF;
             color: #0a0a0a;
-            transform: translateY(-5px);
             box-shadow: 0 0 25px #00BFFF;
         }
 
-        /* Optional: Icons zaidi (unaweza tumia Font Awesome free) */
-        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
+        .coming-soon {
+            font-size: 1.6em;
+            margin-top: 50px;
+            color: #FFD700;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px rgba(0, 191, 255, 0.4); }
+            to { text-shadow: 0 0 30px rgba(0, 191, 255, 0.8); }
+        }
     </style>
 </head>
 <body>
-    <!-- ... Canvas na container yako ya awali ... -->
+    <canvas id="matrix"></canvas>
 
     <div class="container">
-        <img src="logo.webp" alt="EgoClavisLabs Logo" class="logo">
+        <img src="logo.png" alt="EgoClavisLabs Logo" class="logo">
         <h1>EgoClavisLabs</h1>
         <p>Cybersecurity tools • Binary magic • Open source experiments</p>
         <p>Unlocking digital minds since 2026 🔑🧠</p>
         
-        <!-- GitHub Buttons (zilizopo) -->
         <div class="links">
             <a href="https://github.com/EgoClavisLabs" target="_blank">GitHub Organization</a>
             <a href="https://github.com/Richy-boy" target="_blank">Founder: Richy-boy</a>
-        </div>
-
-        <!-- NEW: Social Media Icons -->
-        <div class="social-links">
-            <a href="https://github.com/EgoClavisLabs" target="_blank" title="GitHub">
-                <i class="fab fa-github"></i>
-            </a>
-            <a href="https://x.com/yourhandle" target="_blank" title="X (Twitter)">
-                <i class="fab fa-x-twitter"></i>
-            </a>
-            <a href="https://discord.gg/yourinvite" target="_blank" title="Discord">
-                <i class="fab fa-discord"></i>
-            </a>
-            <!-- Ongeza zaidi unapopata (LinkedIn, YouTube, etc.) -->
         </div>
         
         <p class="coming-soon">More tools coming soon...</p>
     </div>
 
-    <!-- ... Script ya binary rain bado iache chini ... -->
+    <script>
+        // Simple Matrix-style binary rain
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const binary = '01';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function draw() {
+            ctx.fillStyle = 'rgba(10, 10, 10, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#00FF41';
+            ctx.font = `${fontSize}px monospace`;
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = binary[Math.floor(Math.random() * binary.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(draw, 35);
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
 </body>
 </html>

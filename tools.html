@@ -1,9 +1,146 @@
-<html>
-<head>  
-  TOOLS 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PAS-KEY WEB</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      font-family: -apple-system, BlinkMacOSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: #e0e0ff;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Rain effect */
+    .rain {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .drop {
+      position: absolute;
+      width: 2px;
+      height: 60px;
+      background: linear-gradient(to bottom, transparent, rgba(120, 180, 255, 0.9));
+      border-radius: 50% 50% 0 0;
+      animation: fall linear infinite;
+      transform: translateY(-100%);
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(120vh);
+      }
+    }
+
+    .main-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 40px;
+      background: rgba(20, 20, 60, 0.45);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(100, 120, 255, 0.25);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      max-width: 90%;
+    }
+
+    h1 {
+      font-size: 4.2rem;
+      font-weight: 800;
+      letter-spacing: 6px;
+      background: linear-gradient(90deg, #a0d8ef, #d4a5ff, #a0d8ef);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 20px rgba(160, 200, 255, 0.6);
+      margin-bottom: 0.6em;
+    }
+
+    .subtitle {
+      font-size: 1.4rem;
+      opacity: 0.85;
+      letter-spacing: 1.5px;
+      margin-top: 10px;
+    }
+
+    .glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(80,140,255,0.18) 0%, transparent 70%);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 5;
+      animation: pulse 8s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+      50%      { opacity: 0.9; transform: translate(-50%, -50%) scale(1.15); }
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 3rem; letter-spacing: 4px; }
+      .subtitle { font-size: 1.1rem; }
+    }
+  </style>
 </head>
-  <body>
-    <a href="  "><b>PAS-KEY WEB </p>
-    </a>
-  </body>
+<body>
+
+  <div class="glow"></div>
+
+  <div class="rain" id="rain"></div>
+
+  <div class="main-content">
+    <h1>PAS-KEY WEB</h1>
+    <div class="subtitle">Secure • Modern • Always Online</div>
+  </div>
+
+  <script>
+    // Create rain drops
+    function createRain() {
+      const rainContainer = document.getElementById('rain');
+      for (let i = 0; i < 120; i++) {
+        const drop = document.createElement('div');
+        drop.className = 'drop';
+        
+        // random position & animation duration + delay
+        const left = Math.random() * 100;
+        const duration = 0.6 + Math.random() * 0.9;   // 0.6s – 1.5s
+        const delay = Math.random() * 5;
+        const opacity = 0.4 + Math.random() * 0.5;
+
+        drop.style.left = left + 'vw';
+        drop.style.animationDuration = duration + 's';
+        drop.style.animationDelay = delay + 's';
+        drop.style.opacity = opacity;
+
+        rainContainer.appendChild(drop);
+      }
+    }
+
+    createRain();
+  </script>
+
+</body>
 </html>

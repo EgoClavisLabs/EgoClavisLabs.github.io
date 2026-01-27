@@ -59,6 +59,7 @@
 </head>
 <body class="bod">
     <!-- This is the beginning description -->
+    <br><br>
     <b class="pas">PAS-K (PAS-KEY)</b>
 
     <label class="main">
@@ -66,9 +67,10 @@
         Welcome to our web tool its the same version to linux based pas-key  : 
         <p>This web tool is best for those who want to generate new passwords via the web service. <b>Password Generator</b></p>
         
-        <b>>>> Follow the steps below on how to use it:</b>
+        <b>>>> Follow the steps below on how to use it:</b> 
         <ol>
             <li>Click the <b>"Generate"</b> button below to get a new password.</li>
+            <li>Try to copy the password , if not satisfied you can repeat by clicking generate </li>
             <li>For more information, click the <b>"Help"</b> button.</li>
         </ol>
     </label>
@@ -102,10 +104,12 @@
             for (let i = 0; i < length; i++) {
                 const randomIndex = Math.floor(Math.random() * all.length);
                 password += all[randomIndex];
+                message= "Try to copy the password , if not satisfied you can repeat again   "
             }
             
             // Display the password on the page
-            document.getElementById('passwordDisplay').innerHTML = "Your generated password is: <strong>" + password + "</strong>";
+            document.getElementById('passwordDisplay').innerHTML = "Already here >>> <strong>" + password  "</strong>";
+            console.log(message);
         }
     </script>
 </body>

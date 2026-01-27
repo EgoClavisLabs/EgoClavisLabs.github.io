@@ -104,12 +104,10 @@
             for (let i = 0; i < length; i++) {
                 const randomIndex = Math.floor(Math.random() * all.length);
                 password += all[randomIndex];
-                message= "Try to copy the password , if not satisfied you can repeat again   "
             }
             
             // Display the password on the page
             document.getElementById('passwordDisplay').innerHTML = "Already here >>> <strong>" + password  "</strong>";
-            console.log(message);
         }
     </script>
 </body>

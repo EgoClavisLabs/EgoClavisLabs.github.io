@@ -45,10 +45,9 @@ Made with ❤️ by **Richy-boy** (@EgoClavisLabs)
               
   Reddit : (r/commandline, r/Python, r/bash)
           https://www.reddit.com/
-          
-  facebook :
-            https://www.facebook.com/
+
   tiktok : 
           https://www.tiktok.com/@egoclavislabs
+          
  facebook :
           https://www.facebook.com/profile.php?id=61586517827178 

@@ -1,6 +1,5 @@
 
-
-<img width="349" height="378" alt="" src="Untitled design(2).png" />
+<center><img width="349" height="378" alt="" src="Untitled design(2).png"  /></center>
 
 
 # EgoClavisLabs

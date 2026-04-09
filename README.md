@@ -1,7 +1,3 @@
-# EgoClavisLabs.github.io
-EgoClavisLabs website
-
-
 # EgoClavisLabs
 
 **Personal Website & Tools Hub** 🚀

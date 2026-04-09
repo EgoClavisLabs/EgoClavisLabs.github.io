@@ -48,3 +48,5 @@ Made with ❤️ by **Richy-boy** (@EgoClavisLabs)
           
   facebook :
             https://www.facebook.com/
+  tiktok : 
+          https://www.tiktok.com/@egoclavislabs

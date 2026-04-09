@@ -38,3 +38,13 @@ Made with ❤️ by **Richy-boy** (@EgoClavisLabs)
 ---
 
 **Keywords:** linux tools, password generator, python cli tools, bash scripts, terminal tools, developer portfolio, ego clavis labs
+
+**Share social media**                               
+  (x)twitter :
+              https://x.com/
+              
+  Reddit : (r/commandline, r/Python, r/bash)
+          https://www.reddit.com/
+          
+  facebook :
+            https://www.facebook.com/

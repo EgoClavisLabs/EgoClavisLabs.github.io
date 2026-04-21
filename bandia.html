@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bandia-alert</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; }
+    .dropzone { transition: all 0.3s; }
+    .dropzone.dragover { background-color: #f3e8ff; border-color: #a855f7; }
+  </style>
+</head>
+<body class="bg-gray-950 text-white min-h-screen">
+  <div class="max-w-4xl mx-auto py-12 px-6">
+    <div class="flex justify-between items-center mb-10">
+      <div class="flex items-center gap-3">
+        <i class="fa-solid fa-robot text-4xl text-purple-500"></i>
+        <h1 class="text-3xl font-bold">Bandia-alert</h1>
+      </div>
+      <a href="https://github.com/EgoClavisLabs" target="_blank" class="text-purple-400 hover:text-purple-300 flex items-center gap-2">
+        <i class="fa-brands fa-github"></i> GitHub
+      </a>
+    </div>
+
+    <div class="text-center mb-12">
+      <h2 class="text-5xl font-bold mb-4">Detect AI-generated media</h2>
+      <p class="text-xl text-gray-400">Upload a photo or video – I will analyze it and provide the probability of it being AI-generated.</p>
+    </div>
+
+    <div id="uploadArea" class="dropzone border-4 border-dashed border-purple-500 rounded-3xl p-12 text-center cursor-pointer hover:border-purple-400">
+      <i class="fa-solid fa-cloud-upload-alt text-7xl text-purple-400 mb-6"></i>
+      <p class="text-2xl font-medium mb-2">Drag and drop photo or video here</p>
+      <p class="text-gray-400 mb-6">or</p>
+      <button onclick="document.getElementById('fileInput').click()" 
+              class="bg-purple-600 hover:bg-purple-700 px-8 py-4 rounded-2xl font-semibold text-lg flex items-center gap-3 mx-auto">
+        <i class="fa-solid fa-upload"></i>
+        Choose File
+      </button>
+      <input type="file" id="fileInput" accept="image/*,video/*" class="hidden" onchange="handleFile(this.files[0])">
+      <p class="text-sm text-gray-500 mt-6">Supports: JPG, PNG, MP4, MOV (max 50MB)</p>
+    </div>
+
+    <div id="resultSection" class="hidden mt-10 bg-gray-900 rounded-3xl p-8">
+      <div class="flex flex-col md:flex-row gap-8 items-start">
+        <div class="flex-1 w-full">
+          <h3 class="font-semibold mb-3 text-lg">Your Media:</h3>
+          <div id="preview" class="rounded-2xl overflow-hidden bg-black aspect-video flex items-center justify-center border border-gray-700"></div>
+        </div>
+
+        <div class="flex-1 w-full">
+          <h3 class="font-semibold mb-3 text-lg">Detection Results:</h3>
+          <div id="score" class="text-7xl font-bold text-center mb-4">85%</div>
+          <div class="h-4 bg-gray-800 rounded-full overflow-hidden mb-6">
+            <div id="bar" class="h-full bg-gradient-to-r from-green-400 to-red-500 w-[85%]"></div>
+          </div>
+          <p id="label" class="text-2xl font-medium text-center mb-6">Likely AI-generated</p>
+          
+          <div id="explanation" class="text-gray-300 text-sm leading-relaxed">
+            Based on pixel patterns, colors, and textures, there is a high probability that this media was created by AI.
+          </div>
+
+          <button onclick="resetApp()" 
+                  class="mt-8 w-full bg-white text-gray-900 py-4 rounded-2xl font-semibold flex items-center justify-center gap-2 hover:bg-gray-200">
+            <i class="fa-solid fa-rotate-right"></i>
+            Try Again
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentFile = null;
+
+    function handleFile(file) {
+      if (!file) return;
+      currentFile = file;
+      
+      const uploadArea = document.getElementById('uploadArea');
+      uploadArea.classList.add('hidden');
+      
+      const resultSection = document.getElementById('resultSection');
+      resultSection.classList.remove('hidden');
+      
+      // Preview
+      const preview = document.getElementById('preview');
+      preview.innerHTML = '';
+      
+      if (file.type.startsWith('image/')) {
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(file);
+        img.className = 'max-h-[400px] mx-auto rounded-2xl';
+        preview.appendChild(img);
+      } else if (file.type.startsWith('video/')) {
+        const video = document.createElement('video');
+        video.src = URL.createObjectURL(file);
+        video.controls = true;
+        video.className = 'max-h-[400px] mx-auto rounded-2xl w-full';
+        preview.appendChild(video);
+      }
+      
+      // Mock detection (replace here later with a real API)
+      mockDetection();
+    }
+
+    function mockDetection() {
+      const scoreEl = document.getElementById('score');
+      const barEl = document.getElementById('bar');
+      const labelEl = document.getElementById('label');
+      const explanationEl = document.getElementById('explanation');
+      
+      // Random score between 30-95
+      const score = Math.floor(Math.random() * 66) + 30;
+      scoreEl.textContent = score + '%';
+      barEl.style.width = score + '%';
+      
+      if (score > 70) {
+        labelEl.textContent = 'Likely AI-generated';
+        labelEl.className = 'text-2xl font-medium text-center mb-6 text-red-400';
+        explanationEl.textContent = 'The pixel structure shows typical signs of AI generation (similar to Midjourney or Stable Diffusion).';
+      } else {
+        labelEl.textContent = 'Likely authentic media';
+        labelEl.className = 'text-2xl font-medium text-center mb-6 text-green-400';
+        explanationEl.textContent = 'No common AI artifacts detected. This appears to be a photo or video captured by a human.';
+      }
+    }
+
+    function resetApp() {
+      document.getElementById('resultSection').classList.add('hidden');
+      document.getElementById('uploadArea').classList.remove('hidden');
+      currentFile = null;
+    }
+
+    // Drag & Drop support
+    const dropzone = document.getElementById('uploadArea');
+    dropzone.addEventListener('dragover', e => {
+      e.preventDefault();
+      dropzone.classList.add('dragover');
+    });
+    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+    dropzone.addEventListener('drop', e => {
+      e.preventDefault();
+      dropzone.classList.remove('dragover');
+      if (e.dataTransfer.files.length > 0) {
+        handleFile(e.dataTransfer.files[0]);
+      }
+    });
+  </script>
+</body>
+</html>
